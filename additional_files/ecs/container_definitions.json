@@ -1,0 +1,43 @@
+[
+    {
+        "networkMode": "awsvpc",
+        "containerDefinitions": [
+            {
+                "essential": true,
+                "name": "nginx-webserver",
+                "image": "your_acc_id.dkr.ecr.us-east-1.amazonaws.com/leodorov-ecr-l1:1.21.1-1",
+                "memory": 1000,
+                "cpu": 512,
+                "portMappings": [
+                    {
+                        "hostPort": 80,
+                        "containerPort": 80,
+                        "protocol": "tcp"
+                    }
+                ],
+                "logConfiguration": {
+                    "logDriver": "awslogs",
+                    "options": {
+                        "awslogs-group": "/ecs/nginx-container-logs",
+                        "awslogs-region": "us-east-1",
+                        "awslogs-stream-prefix": "ecs"
+                    }
+                }
+            }
+        ],
+        "family": "nginx-webserver",
+        "name": "nginx",
+        "image": "your_acc_id.dkr.ecr.us-east-1.amazonaws.com/leodorov-ecr-l1:1.21.1-1",
+        "memory": 1024,
+        "cpu": 512,
+        "portMappings": [
+            {
+                "containerPort": 80,
+                "hostPort": 80
+            }
+        ],
+        "requiresCompatibilities": [ 
+            "FARGATE" 
+         ]
+    }
+]
